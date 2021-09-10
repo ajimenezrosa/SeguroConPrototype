@@ -27,6 +27,28 @@ UI.prototype.llenarOpciones = () => {
 }
 
 
+UI.prototype.mostrarMensaje = (mensaje, tipo) => {
+    const formulario = document.querySelector('#cotizar-seguro');
+    const div = document.createElement('div');
+
+    if (tipo ==='error') {
+        div.classList.add('error');
+    } else {
+        div.classList.add('correcto');
+    }
+
+    div.classList.add('mensaje', 'mt-10');
+    div.textContent = mensaje;
+
+    // insertar en el html
+    formulario.insertBefore(div, document.querySelector('#resultado'));
+
+    setTimeout(() => {
+        div.remove();
+    }, 3000);
+}
+
+
 // Instanciar UI
 const ui = new UI();
 
@@ -51,18 +73,24 @@ function cotizarseguro(e) {
     
     // leer el anio seleccionado
     const year = document.querySelector('#year').value;
-    console.log(year);
 
   // leer el tipo de cobertura
   // este objeto es un radio buttom los readio button se leen en javascript de la siguiente manera
   const tipo = document.querySelector('input[name="tipo"]:checked').value;
     if( marca=== '' || year ==='' || tipo === '') {
-        // console.log('No paso la Validacion');
+        ui.mostrarMensaje('Todos los Campos Son Obligatorios', 'error');
+        return;
+    } 
+    
+    ui.mostrarMensaje('Cotizando', 'exito');
+   
+    // Instanciar el seguro
 
 
-    } else {
-        console.log('Si paso la Validacion');
-    }
+    //Utilizar prototype que va a cotizar..
+    
+
+
 
 }
 
